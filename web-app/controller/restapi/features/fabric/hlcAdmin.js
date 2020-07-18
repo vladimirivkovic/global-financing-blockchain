@@ -17,6 +17,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const identity = 'user1';
 
 // Bring Fabric SDK network class
 const { FileSystemWallet, Gateway } = require('fabric-network');
@@ -72,7 +73,7 @@ exports.getMembers = async function(req, res, next) {
 
         // A gateway defines the peers used to access Fabric networks
         const gateway = new Gateway();
-        await gateway.connect(ccp, { wallet, identity: 'User1@org1.example.com', discovery: { enabled: false } });
+        await gateway.connect(ccp, { wallet, identity: identity, discovery: { enabled: false } });
 
         // Get addressability to network
         const network = await gateway.getNetwork('mychannel');
@@ -166,7 +167,7 @@ exports.getAssets = async function(req, res, next) {
 
         // A gateway defines the peers used to access Fabric networks
         const gateway = new Gateway();
-        await gateway.connect(ccp, { wallet, identity: 'User1@org1.example.com', discovery: { enabled: false } });
+        await gateway.connect(ccp, { wallet, identity: identity, discovery: { enabled: false } });
 
         // Get addressability to network
         const network = await gateway.getNetwork('mychannel');
@@ -231,7 +232,7 @@ exports.addMember = async function(req, res, next) {
 
         // A gateway defines the peers used to access Fabric networks
         const gateway = new Gateway();
-        await gateway.connect(ccp, { wallet, identity: 'User1@org1.example.com', discovery: { enabled: false } });
+        await gateway.connect(ccp, { wallet, identity: identity, discovery: { enabled: false } });
 
         // Get addressability to network
         const network = await gateway.getNetwork('mychannel');

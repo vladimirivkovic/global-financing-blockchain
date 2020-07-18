@@ -20,6 +20,7 @@ let path = require('path');
 let itemTable = null;
 const svc = require('./Z2B_Services');
 const financeCoID = 'easymoney@easymoneyinc.com';
+const identity = 'user1';
 
 // Bring Fabric SDK network class
 const { FileSystemWallet, Gateway } = require('fabric-network');
@@ -55,7 +56,7 @@ exports.getMyOrders = async function (req, res, next) {
 
         // A gateway defines the peers used to access Fabric networks
         const gateway = new Gateway();
-        await gateway.connect(ccp, { wallet, identity: 'User1@org1.example.com', discovery: { enabled: false } });
+        await gateway.connect(ccp, { wallet, identity: identity, discovery: { enabled: false } });
 
         // Get addressability to network
         const network = await gateway.getNetwork('mychannel');
@@ -147,7 +148,7 @@ exports.orderAction = async function (req, res, next) {
 
         // A gateway defines the peers used to access Fabric networks
         const gateway = new Gateway();
-        await gateway.connect(ccp, { wallet, identity: 'User1@org1.example.com', discovery: { enabled: false } });
+        await gateway.connect(ccp, { wallet, identity: identity, discovery: { enabled: false } });
 
         // Get addressability to network
         const network = await gateway.getNetwork('mychannel');
@@ -300,7 +301,7 @@ exports.addOrder = async function (req, res, next) {
 
         // A gateway defines the peers used to access Fabric networks
         const gateway = new Gateway();
-        await gateway.connect(ccp, { wallet, identity: 'User1@org1.example.com', discovery: { enabled: false } });
+        await gateway.connect(ccp, { wallet, identity: identity, discovery: { enabled: false } });
 
         // Get addressability to network
         const network = await gateway.getNetwork('mychannel');

@@ -3,6 +3,7 @@
 const Fabric_Client = require('fabric-client');
 let path = require('path');
 let fs = require('fs');
+const identity = 'user1';
 
 let fabric_client = new Fabric_Client();
 
@@ -16,7 +17,7 @@ channel.addPeer(peer);
 let order = fabric_client.newOrderer(ccp.orderers['orderer.example.com'].url);
 channel.addOrderer(order);
 
-let store_path = path.join(__dirname, '_idwallet', 'User1@org1.example.com');
+let store_path = path.join(__dirname, '_idwallet', identity);
 //console.log('Store path:'+store_path);
 
 exports.getBlockchain = async function(req, res, next) {
@@ -39,11 +40,11 @@ exports.getBlockchain = async function(req, res, next) {
         fabric_client.setCryptoSuite(crypto_suite);
 
         // get the enrolled user from persistence, this user will sign all requests
-        let user_from_store = await fabric_client.getUserContext('User1@org1.example.com', true);
+        let user_from_store = await fabric_client.getUserContext(identity, true);
         if (user_from_store && user_from_store.isEnrolled()) {
-            //console.log('Successfully loaded User1@org1.example.com from persistence');
+            //console.log('Successfully loaded identity from persistence');
         } else {
-            throw new Error('Failed to get User1@org1.example.com.... run registerUser.js');
+            throw new Error('Failed to get identity.... run registerUser.js');
         }
 
         let blockchainInfo = await channel.queryInfo();
