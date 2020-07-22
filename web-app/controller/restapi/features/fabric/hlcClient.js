@@ -203,14 +203,14 @@ exports.orderAction = async function (req, res, next) {
         }
         case 'Refund': {
             console.log('Refund Payment entered');
-            const refundResponse = await contract.submitTransaction('Refund', order.orderNumber, order.sellerId, financeCoID, req.body.reason);
+            const refundResponse = await contract.submitTransaction('Refund', order.orderNumber, order.sellerId, financeCoID, req.body.reason ? req.body.reason : "");
             console.log('refundResponse_response: ');
             console.log(JSON.parse(refundResponse.toString()));
             break;
         }
         case 'Resolve':{
             console.log('Resolve entered');
-            const resolveResponse = await contract.submitTransaction('Resolve', order.orderNumber, order.buyerId, order.sellerId, order.shipperId, order.providerId, financeCoID, req.body.reason);
+            const resolveResponse = await contract.submitTransaction('Resolve', order.orderNumber, order.buyerId, order.sellerId, order.shipperId, order.providerId, financeCoID, req.body.reason ? req.body.reason : "");
             console.log('resolveResponse_response: ');
             console.log(JSON.parse(resolveResponse.toString()));
             break;
